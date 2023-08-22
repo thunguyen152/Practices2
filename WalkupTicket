@@ -1,0 +1,12 @@
+package com.company;
+/* Programmer: Dan-Thu Nguyen
+Date: 10/26/2021
+Title: Walkup Ticket
+Description: implement a class to represent walk-up event tickets
+ */
+public class WalkupTicket extends Ticket{
+    public WalkupTicket(int number) {
+        super(number);      //get the number from the parent class
+        price = 50;         //assign price
+    }
+}

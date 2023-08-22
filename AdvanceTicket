@@ -1,0 +1,17 @@
+package com.company;
+/* Programmer: Dan-Thu Nguyen
+Date: 10/26/2021
+Title: Advance Ticket
+Description: implement a class to represent tickets purchased in advance
+ */
+public class AdvanceTicket extends Ticket {
+    public AdvanceTicket(int number, int days) {
+        super(number);      //get the number from the parent class
+        if (days >= 10) {   //if purchased 10 or more days before the event
+            price = 30;
+        }
+        else {              //if purchased fewer than 10 days before the event
+            price = 40;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+package com.company;
+
+/* Programmer: Dan-Thu Nguyen
+Date: 10/18/2021
+Title: Task 2
+Description: a class that include balance and accountID as instance variables
+ */
+
+public class PaypalAccount {
+    int accountID;
+    double balance;
+}

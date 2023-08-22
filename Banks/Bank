@@ -1,0 +1,70 @@
+package com.company;
+
+/* Programmer: Dan-Thu Nguyen
+Date: 10/18/2021
+Title: Task 1
+Description: create an array to hold account objects with randomly generated balance and find the average, largest, and smallest balance
+    Practicing with calling from another .java
+ */
+ 
+import java.util.Scanner;
+public class Bank {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of accounts to generate: ");
+        int numOfAccount = input.nextInt();
+        PaypalAccount[] accounts = new PaypalAccount[numOfAccount];         //create an array for these accounts
+
+        for (int i = 0; i < numOfAccount; i++) {
+            accounts[i] = new PaypalAccount();      //assign a new number and balance every time the loop runs
+            accounts[i].accountID = i + 1;
+            accounts[i].balance = (int)((Math.random() * 100000) / 100.0);  //assign a random balance for each account
+            // * 100000 will put most of the balance in thousands; / 100.0 will give 2 decimal places behind the amount
+        }
+
+        String PantherID = "002-11-2222";
+        String campusID = PantherID.substring(0, 3);        //take out the first 3 digits
+        int ID = Integer.parseInt(campusID);                //change string to integer
+        String removeDashes = PantherID.replaceAll("-","");     //get rid of the dashes
+        String lastDigits = removeDashes.substring(4);      //take out the last 5 digits
+        int lastID = Integer.parseInt(lastDigits);          //change string to integer
+        System.out.print("My Panther ID is: " + PantherID + "; ");
+        boolean findID = false;
+        for (int i = 0; i < numOfAccount; i++) {
+            if (accounts[i].accountID == ID) {              //search for an account ID that matches with the first 3 digits of Panther ID
+                accounts[i].balance = (double) lastID/100;  //set the balance of the account to be the last 5 digits divided by 100
+                System.out.println("My bank account ID is: " + ID + " and balance is: $" + accounts[i].balance);
+                findID = true;          //make boolean true
+            }
+        }
+        if (!findID) {                  //if boolean is still false
+            accounts[numOfAccount - 1].accountID = ID;                  //set the last account in the array to be the first 3 digits of Panther ID
+            accounts[numOfAccount - 1].balance = accounts[0].balance;   //transfer the balance of the first account to this 3-digits-of-Panther-ID account
+            System.out.println("My bank account ID is: " + ID + "and balance is: $" + accounts[numOfAccount - 1].balance);
+        }
+
+        double sum = 0;
+        double average = 0;
+        for (int i = 0; i < numOfAccount; i++) {        //find the average account balance of all the accounts in the array
+            sum += accounts[i].balance;
+        }
+        average = sum / numOfAccount;
+        System.out.println("The average balance is: $" + Math.round(average * 100.0) / 100.0);  //print out the average with 2 decimal places
+
+        PaypalAccount max = accounts[0];
+        for (int i = 0; i < numOfAccount; i++) {        //find the account with the largest balance
+            if (max.balance < accounts[i].balance) {
+                max = accounts[i];
+            }
+        }
+        System.out.println("The account with the largest balance is: accountID = " + max.accountID + ", balance = $" + max.balance);
+
+        PaypalAccount min = accounts[0];
+        for (int i = 0; i < numOfAccount; i++) {        //find the account with the lowest balance
+            if (min.balance > accounts[i].balance) {
+                min = accounts[i];
+            }
+        }
+        System.out.println("The account with the lowest balance is: accountID = " + min.accountID + ", balance = $" + min.balance);
+    }
+}
